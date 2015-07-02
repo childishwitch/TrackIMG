@@ -1,0 +1,11 @@
+node_modules
+.tmp
+.sass-cache
+**/bower_components or sometimes it is lib/**
+coverage
+platforms
+plugins
+*keystore
+*.sw*
+*.log
+*.DS_Store
