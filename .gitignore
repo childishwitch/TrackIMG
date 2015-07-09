@@ -3,7 +3,6 @@ node_modules
 .sass-cache
 **/bower_components or sometimes it is lib/**
 coverage
-platforms
 plugins
 *keystore
 *.sw*
