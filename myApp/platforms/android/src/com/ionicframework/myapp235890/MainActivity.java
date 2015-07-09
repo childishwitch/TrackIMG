@@ -25,6 +25,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class MainActivity extends CordovaActivity
 {
@@ -32,7 +34,10 @@ public class MainActivity extends CordovaActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+		
+		
 		setContentView(R.layout.main);
+		
 		final Button btt = (Button)findViewById(R.id.go);
         btt.setOnClickListener(new OnClickListener(){
 
