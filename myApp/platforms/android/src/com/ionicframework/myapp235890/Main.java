@@ -33,9 +33,9 @@ public class Main extends CordovaActivity
         super.onCreate(savedInstanceState);
 		
 		
-		setContentView(R.layout.camera);
+		setContentView(R.layout.activity_main);
 		
-		final Button btt = (Button)findViewById(R.id.go);
+		final Button btt = (Button)findViewById(R.id.scan1);
         btt.setOnClickListener(new OnClickListener(){
 
 			@Override
