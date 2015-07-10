@@ -27,7 +27,7 @@
         android:id="@+id/imgcaptured"
 		android:layout_centerVertical="true"
 		android:layout_centerHorizontal="true"
-		android:background="@drawable/icon"/>
+		android:background="#000000"/>
 
 
 </RelativeLayout>

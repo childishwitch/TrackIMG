@@ -9,24 +9,24 @@ import java.io.IOException;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
-
-
  
 public class MainActivity extends CordovaActivity implements SurfaceHolder.Callback{
  SurfaceHolder surfaceHolder;
  SurfaceView surfaceView1;
- Button button1;
- ImageView imageView1;
+ Button scan;
+ ImageView imageView;
  Camera camera;
   
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-		button1=(Button)findViewById(R.id.scan1);
-		imageView1=(ImageView)findViewById(R.id.imgcaptured);
-		
+		scan=(Button)findViewById(R.id.scan1);
+		imageView=(ImageView)findViewById(R.id.imgcaptured);
+		surfaceView1=(SurfaceView)findViewById(R.id.camera_inside);
         
     }
 	
@@ -39,19 +39,23 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
         //0代表橫向、1代表縱向
         //setRequestedOrientation(0);
         //設為横向顯示。因為攝影頭會自動翻轉90度，所以如果不横向顯示，看到的畫面就是翻轉的。
-		surfaceView1=(SurfaceView)findViewById(R.id.camera_inside);
+		
         surfaceHolder=surfaceView1.getHolder();
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         surfaceHolder.addCallback(this);
-        /*button1.setOnClickListener(new OnClickListener(){
+        scan.setOnClickListener(new OnClickListener(){
   
 		   public void onClick(View v) {
 			 
 			//自動對焦
-			camera.autoFocus(afcb);
-			 
+			//camera.autoFocus(afcb);
+			scan.setEnabled(false);
+			//imageView.setImageResource(R.drawable.building);
+			
+			//error occured before loadUrl
+			//surfaceDestroyed(surfaceHolder);
+			loadUrl(launchUrl);
 		   }});
-		  */
     }
 	
 	/*
@@ -61,7 +65,7 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
     
    Bitmap bmp=BitmapFactory.decodeByteArray(data, 0, data.length);
    //byte數组轉換成Bitmap
-   imageView1.setImageBitmap(bmp);
+   imageView.setImageBitmap(bmp);
    //拍下圖片顯示在下面的ImageView裡
         Date curDateTime = new Date();
         SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
