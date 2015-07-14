@@ -21,29 +21,14 @@ package com.ionicframework.myapp235890;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
-public class Main extends CordovaActivity
+public class Test extends CordovaActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-		
-		
-		setContentView(R.layout.activity_main);
-		
-		final Button btt = (Button)findViewById(R.id.scan1);
-        btt.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v){
-				loadUrl(launchUrl);
-			}
-		});
         // Set by <content src="index.html" /> in config.xml
-        //loadUrl(launchUrl);
+        loadUrl(launchUrl);
     }
 }

@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'ng-mfb'])
-.controller("CameraCtrl", function($scope, $cordovaCamera) {
- 
+angular.module('starter', ['ionic', 'ng-mfb'])
+.controller("ContentCtrl", function($scope) {
+	/*
     $scope.takePicture = function() {
         var options = { 
             quality : 75, 
@@ -25,7 +25,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ng-mfb'])
         }, function(err) {
             // An error occured. Show a message to the user
         });
-    }
+    }*/
 	
 	$scope.myItems = ["台北","101大樓"];
 	$scope.sysItems = ["臺灣","煙火","跨年","台北市"];
