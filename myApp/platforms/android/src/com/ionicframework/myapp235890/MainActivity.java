@@ -19,43 +19,51 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
  Button scan;
  ImageView imageView;
  Camera camera;
+ static boolean onUrl = false;
+ 
   
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-		scan=(Button)findViewById(R.id.scan1);
-		imageView=(ImageView)findViewById(R.id.imgcaptured);
-		surfaceView1=(SurfaceView)findViewById(R.id.camera_inside);
-        
+		super.onCreate(savedInstanceState);
+		if(onUrl)
+			loadUrl(launchUrl);
+		else{
+			setContentView(R.layout.activity_main);
+			scan=(Button)findViewById(R.id.scan1);
+			imageView=(ImageView)findViewById(R.id.imgcaptured);
+			surfaceView1=(SurfaceView)findViewById(R.id.camera_inside);
+        }
     }
 	
 	 @Override
     public void onResume(){
 		super.onResume();
-		camera=Camera.open();
-    	
-        //在AndroidManifest.xml中設定或是用下面的setRequestedOrientation(0)設定也可以
-        //0代表橫向、1代表縱向
-        //setRequestedOrientation(0);
-        //設為横向顯示。因為攝影頭會自動翻轉90度，所以如果不横向顯示，看到的畫面就是翻轉的。
-		
-        surfaceHolder=surfaceView1.getHolder();
-        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        surfaceHolder.addCallback(this);
-        scan.setOnClickListener(new OnClickListener(){
-  
-		   public void onClick(View v) {
-			 
-			//自動對焦
-			//camera.autoFocus(afcb);
-			scan.setEnabled(false);
-			//imageView.setImageResource(R.drawable.building);
+		if(!onUrl){
+			camera=Camera.open();
 			
-			//error occured before loadUrl
-			//surfaceDestroyed(surfaceHolder);
-			loadUrl(launchUrl);
-		   }});
+			//在AndroidManifest.xml中設定或是用下面的setRequestedOrientation(0)設定也可以
+			//0代表橫向、1代表縱向
+			//setRequestedOrientation(0);
+			//設為横向顯示。因為攝影頭會自動翻轉90度，所以如果不横向顯示，看到的畫面就是翻轉的。
+			
+			surfaceHolder=surfaceView1.getHolder();
+			surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+			surfaceHolder.addCallback(this);
+			scan.setOnClickListener(new OnClickListener(){
+	  
+			   public void onClick(View v) {
+				 
+				//自動對焦
+				//camera.autoFocus(afcb);
+				scan.setEnabled(false);
+				//imageView.setImageResource(R.drawable.building);
+				
+				//error occured before loadUrl
+				//surfaceDestroyed(surfaceHolder);
+				onUrl = true;
+				loadUrl(launchUrl);
+			   }});
+		}
     }
 	
 	/*
@@ -136,9 +144,11 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
  public void surfaceDestroyed(SurfaceHolder holder) {
    
   System.out.println("surfaceDestroyed");
-  camera.stopPreview();
-  //關閉預覽
-  camera.release();
+  //if(camera != null){
+	  camera.stopPreview();
+	  //關閉預覽
+	  camera.release();
+  //}
   // 
  }
   /*
