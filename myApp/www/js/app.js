@@ -4,8 +4,16 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
+/*window.onorientationchange = function(){
+	var orientation = window.orientation;
+	if(orientation == 90 || orientation == -90)
+		window.parent.location = "index_land.html";
+	else
+		window.parent.location = "index.html";
+	window.location.reload();
+};*/
 angular.module('starter', ['ionic', 'ng-mfb'])
-.controller("ContentCtrl", function($scope) {
+.controller("ContentCtrl", function($scope, $element, $window) {
 	/*
     $scope.takePicture = function() {
         var options = { 
@@ -29,7 +37,31 @@ angular.module('starter', ['ionic', 'ng-mfb'])
 	
 	$scope.myItems = ["台北","101大樓"];
 	$scope.sysItems = ["臺灣","煙火","跨年","台北市"];
- 
+
+	$scope.getWindowOrientation = function () {
+		return $window.orientation;
+	};
+  
+	$scope.$watch($scope.getWindowOrientation, function (newValue, oldValue) {
+		if(newValue == 0)
+			parent.location = "index.html";
+		else
+			parent.location = "index_land.html";
+	}, true);
+	
+	
+	//$window.onorientationchange = function () {
+	angular.element($window).bind('orientationchange', function () {
+		/*	
+			if($window.orientation == 0)
+				parent.location = "index.html";
+			else
+				parent.location = "index_land.html";*/
+			//$scope.degrees = 100;
+			//$window.location.reload();
+			$scope.$apply();
+	//};
+	});
 });
 /*
 .run(function($ionicPlatform) {
