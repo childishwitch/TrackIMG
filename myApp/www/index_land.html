@@ -26,16 +26,28 @@
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <!--script src="js/controllers.js"></script-->
+<!--script>
+function onorientationchange(){
+	var orientation = window.orientation;
+	if(orientation == 90 || orientation == -90)
+		parent.location = "index_land.html";
+	else
+		parent.location = "index.html";
+	window.location.reload();
+}
+window.addEventListenter('orientationchange',onorientationchange);
+onorientationchange();
+</script-->
   </head>
 
   <body ng-app="starter">
     <!--ion-nav-view></ion-nav-view-->
-	<nav mfb-menu position="tr" effect="zoomin"
+	<!--nav mfb-menu position="tr" effect="zoomin"
 		 active-icon="ion-close-round" resting-icon="ion-edit"
 		 toggling-method="click">
 		 <button mfb-button mfb-button-close icon="ion-android-search" onClick="parent.location='search/search.html'"></button>
 		 <button mfb-button mfb-button-close icon="ion-plus-round"></button>
-	</nav>
+	</nav-->
 	<ion-content ng-controller="ContentCtrl">
 		landscape
 	</ion-content>
