@@ -8,7 +8,6 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 	<link href="lib/floating-button/mfb/dist/mfb.css" rel="stylesheet">
-
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
@@ -26,63 +25,11 @@
 	
     <!-- your app's js -->
     <script src="js/app.js"></script>
-    <!--script src="js/controllers.js"></script-->
-<script type="text/javascript">
-window.addEventListener("orientationchange", function() {
-//.element($window).bind('orientationchange', function ($window,$scope) {
-			var orientation = window.orientation;
-			alert(orientation);
-			if(orientation == 0)
-				parent.location = "index.html";
-			else if(orientation == 90 || orientation == -90)
-				parent.location = "index_land.html";
-			window.location.reload();
-			//$scope.$apply();
-},false);
-</script>
+    <script src="js/controllers.js"></script>
   </head>
-
-  <body ng-app="starter">
-    <!--ion-nav-view></ion-nav-view-->
-	<nav mfb-menu position="br" effect="zoomin"
-		 active-icon="ion-close-round" resting-icon="ion-edit"
-		 toggling-method="click">
-		 <button mfb-button mfb-button-close icon="ion-android-search" onClick="parent.location='search/search.html'"></button>
-		 <button mfb-button mfb-button-close icon="ion-plus-round"></button>
-	</nav>
-	<ion-content ng-controller="ContentCtrl">
-		<ion-list>
-		  <div class="item item-divider">
-			自行新增的
-		  </div>
-		  <ion-item ng-repeat="item in myItems">
-			{{degrees}}
-		  </ion-item>
-		  <div class="item item-divider">
-			相片剛剛說的
-		  </div>
-		  <ion-item ng-repeat="item in sysItems">
-			{{item}}
-		  </ion-item>
-		</ion-list>
-
-		<!--div class="row">
-			<div class="col .col-33">
-				<button class="button button-outline button-dark">flash</button>
-			</div>
-			<div class="col .col-33 .col-offset-33">
-				<button class="button button-outline button-dark">open</button>
-			</div>
-		</div-->
-		<!--img ng-show="imgURI === undefined" ng-src="{{imgURI}}"-->
-		<!--img ng-show="imgURI !== undefined" ng-src="http://web.ntnu.edu.tw/~498231299/homepage/homepage_Chance/picture/p2.jpg" max-width="100%" width="100%" max-height="100%" height="100%"-->	
-	</ion-content>
-	<!--div class="bar bar-footer">
-			<div class="button-bar button-full">
-			  <a class="button">clip</a>
-			  <a class="button">scan</a>
-			  <a class="button">other</a>
-			</div>
-	</div-->
-  </body>
-</html>
+	<body ng-app="starter">
+		<div ng-controller="IndexCtrl">       
+		  <ion-nav-view></ion-nav-view>
+		</div>
+	</body>
+ </html>
