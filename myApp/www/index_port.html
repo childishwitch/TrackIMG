@@ -7,19 +7,29 @@
 			 <button mfb-button mfb-button-close icon="ion-plus-round"></button>
 		</nav>
 		<ion-content ng-controller="ContentCtrl">
-			<ion-list>
+			<!--ion-toggle ng-model="shouldShowCheck"></ion-toggle-->
+			<ion-list can-swipe="true">
 			  <div class="item item-divider">
 				自行新增的
 			  </div>
-			  <ion-item ng-repeat="item in myItems">
-				{{degrees}}
-			  </ion-item>
+			  <ion-item  ng-click="search(item)" ng-repeat="item in myItems">
+				<!--ion-checkbox ng-model="isChecked" style="border:none;padding-top:2px;padding-bottom:2px;padding-right:2px;padding-left:30px;position:relative;left:0;margin:0%;size:100%;"-->
+				<ion-checkbox ng-model="isChecked" style="padding-top:2px;padding-bottom:2px;padding-right:2px;padding-left:30px;position:relative;left:0;margin:0%;size:100%;">
+				{{item}}
+				</ion-checkbox>
+				<ion-option-button class="button-positive"
+                       ng-click="delete(item)">
+					Delete
+				</ion-option-button>
+				</ion-item>
+			</ion-list>
+			<ion-list>
 			  <div class="item item-divider">
 				相片剛剛說的
 			  </div>
-			  <ion-item ng-repeat="item in sysItems">
+				<ion-checkbox ng-click="search(item)" ng-model="isChecked" ng-repeat="item in sysItems">
 				{{item}}
-			  </ion-item>
+				</ion-checkbox>
 			</ion-list>
 		</ion-content>
 	</ion-pane>
