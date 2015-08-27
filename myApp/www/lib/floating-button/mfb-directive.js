@@ -69,6 +69,7 @@
       link: function($scope, $element, $attrs, mfbMenuController) {
         $element.bind('click', function() {
           mfbMenuController.close();
+		  //document.location.href='search/search.html';
         });
       },
     };
