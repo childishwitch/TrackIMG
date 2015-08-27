@@ -12,14 +12,19 @@
 			  <div class="item item-divider">
 				自行新增的
 			  </div>
-			  <ion-item  ng-click="search(item)" ng-repeat="item in myItems">
+			 <ion-item ng-click="search(item)" ng-repeat="item in myItems" class="item item-icon-right">
 				<!--ion-checkbox ng-model="isChecked" style="border:none;padding-top:2px;padding-bottom:2px;padding-right:2px;padding-left:30px;position:relative;left:0;margin:0%;size:100%;"-->
-				<ion-checkbox ng-model="isChecked" style="padding-top:2px;padding-bottom:2px;padding-right:2px;padding-left:30px;position:relative;left:0;margin:0%;size:100%;">
+				<label class="item-checkbox" ng-model="item.checked" ng-click="vm.checkbox()">
+				<div class="checkbox checkbox-input-hidden disable-pointer-events">
+				<input type="checkbox">
+				<i class="checkbox-icon"></i>
+				</div>
+				</label>
 				{{item}}
-				</ion-checkbox>
-				<ion-option-button class="button-positive"
-                       ng-click="delete(item)">
-					Delete
+				<i class="icon ion-ios-arrow-right"></i>
+				<!--/ion-checkbox-->
+				<ion-option-button class="ion-trash-a icon-right button-assertive" ng-click="delete(item)">
+				Delete
 				</ion-option-button>
 				</ion-item>
 			</ion-list>
@@ -27,9 +32,18 @@
 			  <div class="item item-divider">
 				相片剛剛說的
 			  </div>
-				<ion-checkbox ng-click="search(item)" ng-model="isChecked" ng-repeat="item in sysItems">
+			  <ion-item ng-click="search(item)" ng-repeat="item in sysItems" class="item item-icon-right">
+				<!--ion-checkbox ng-click="search(item)" ng-model="isChecked" ng-repeat="item in sysItems"-->
+				<label class="item-checkbox" ng-model="item.checked" ng-click="vm.checkbox()">
+				<div class="checkbox checkbox-input-hidden disable-pointer-events">
+				<input type="checkbox">
+				<i class="checkbox-icon"></i>
+				</div>
+				</label>
 				{{item}}
-				</ion-checkbox>
+				<i class="icon ion-ios-arrow-right"></i>
+				<!--/ion-checkbox-->
+			  </ion-item>
 			</ion-list>
 		</ion-content>
 	</ion-pane>
