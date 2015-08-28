@@ -14,14 +14,15 @@
 			  </div>
 			 <ion-item ng-click="search(item)" ng-repeat="item in myItems" class="item item-icon-right">
 				<!--ion-checkbox ng-model="isChecked" style="border:none;padding-top:2px;padding-bottom:2px;padding-right:2px;padding-left:30px;position:relative;left:0;margin:0%;size:100%;"-->
-				<label class="item-checkbox" ng-model="item.checked" ng-click="vm.checkbox()">
+				<label class="item-checkbox" ng-model="item.checked" ng-click="vm.checkbox()" style="position:absolute;left:0px;top:0px;bottom:0px;width:50px;height:50px;">
+				<!--div class="checkbox checkbox-input-hidden disable-pointer-events"-->
 				<div class="checkbox checkbox-input-hidden disable-pointer-events">
 				<input type="checkbox">
 				<i class="checkbox-icon"></i>
 				</div>
 				</label>
-				{{item}}
-				<i class="icon ion-ios-arrow-right"></i>
+				<span style="margin-left:50px;">{{item}}</span>
+				<!--i class="icon ion-ios-arrow-right"></i-->
 				<!--/ion-checkbox-->
 				<ion-option-button class="ion-trash-a icon-right button-assertive" ng-click="delete(item)">
 				Delete
@@ -34,14 +35,13 @@
 			  </div>
 			  <ion-item ng-click="search(item)" ng-repeat="item in sysItems" class="item item-icon-right">
 				<!--ion-checkbox ng-click="search(item)" ng-model="isChecked" ng-repeat="item in sysItems"-->
-				<label class="item-checkbox" ng-model="item.checked" ng-click="vm.checkbox()">
+				<label class="item-checkbox" ng-model="item.checked" ng-click="vm.checkbox()"  style="position:absolute;left:0px;top:0px;bottom:0px;width:50px;height:50px;">
 				<div class="checkbox checkbox-input-hidden disable-pointer-events">
 				<input type="checkbox">
 				<i class="checkbox-icon"></i>
 				</div>
 				</label>
-				{{item}}
-				<i class="icon ion-ios-arrow-right"></i>
+				<span style="margin-left:50px;">{{item}}</span>
 				<!--/ion-checkbox-->
 			  </ion-item>
 			</ion-list>
