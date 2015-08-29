@@ -6,6 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 var showFullScreen = false;
 var showStatusBar = true;
+
 angular.module('starter', ['ionic', 'starter.controllers', 'ng-mfb'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -37,7 +38,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ng-mfb'])
 	.state('eventmenu', {
       url: '/event',
       abstract: true,
-      templateUrl: 'templates/event-menu.html'
+      templateUrl: 'templates/event-menu.html',
+	  controller: 'EventMenuCtrl'
     })
 	.state('eventmenu.port', {
       url: '/port',
