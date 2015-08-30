@@ -1,5 +1,4 @@
 ﻿angular.module('starter.controllers', ['ionic', 'ng-mfb'])
-
 .controller('IndexCtrl', function($scope, $ionicPlatform) {
 /*
  $scope.leftButtons = [{
@@ -64,10 +63,11 @@
 .controller('OmfbCtrl', function($scope,$ionicPlatform) {
 		var mfbDeregister = $ionicPlatform.registerBackButtonAction(
 		function () {
-			//$scope.omfbState = "closed";
-			//$scope.dataMfbState= "closed";
-			var scope = $scope;
-			document.getElementsByClassName('orient-mfb')[0].setAttribute("data-mfb-state", "closed");
+			var omfb = document.getElementsByClassName('orient-mfb')[0];
+			if(omfb.getAttribute("data-mfb-state") == 'open')
+				onTouch();
+			else
+				alert('back to camera?');
 			}, 101
 		);
 });

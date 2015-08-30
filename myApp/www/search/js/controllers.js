@@ -1,6 +1,38 @@
 angular.module('starter.controllers', ['ionic'])
 
-.controller('MainCtrl', function($scope, $ionicSideMenuDelegate) {
+.controller('MainCtrl', function($scope, $ionicSideMenuDelegate, $ionicPlatform,$ionicHistory,$state) {
+     
+	  /**ionicHistory property**/
+	  /**
+	  $ionicHistory.nextViewOptions({
+		disableAnimate: false,
+		disableBack: false,
+		historyRoot: false
+		});
+**/
+	  
+	  /**check for ionicHistory**/
+/**
+	  $scope.$on('$ionicView.enter', function(e) {
+        var history = $ionicHistory.viewHistory();
+        angular.forEach(history.views, function(view, index){
+            console.log('views: ' + view.stateName);
+        });
+        angular.forEach(history.histories[$ionicHistory.currentHistoryId()].stack, function(view, index){
+            console.log('history stack:' + view.stateName);
+        });
+    });
+**/
+
+	var backDeregister = $ionicPlatform.registerBackButtonAction(
+	function () {
+		if($state.current.name=="eventmenu.home")
+			location = "../index.html";
+		else{
+			$ionicHistory.goBack(-1);//backview is always null??????
+		}
+	}, 101);
+
   $scope.leftButtons = [{
     type: 'button-icon button-clear ion-navicon',
     tap: function(e) {

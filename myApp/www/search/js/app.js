@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$rootScope, $timeout, $ionicHistory,$state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,6 +20,28 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       StatusBar.styleDefault();
     }
   });
+  /**watch the state change**/
+  /**
+  	var backDeregister;
+      $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+		if($state.current.name=="eventmenu.home"){
+				backDeregister = $ionicPlatform.registerBackButtonAction(
+					function () {
+					location = "../index.html";
+				}, 101);
+		}
+		else{
+			backDeregister();//backview is always null??????
+		}
+        console.log('stateChangeSuccess');
+        console.log('State change from: ' + fromState.name + ' to: ' + toState.name);
+		console.log($ionicHistory.backView() === null ? "<null>" : $ionicHistory.backView().stateName);
+        //$timeout(function() {
+        //    console.log('$timeout after 1 sec $ionicHistory.backView().stateName');
+        //    console.log($ionicHistory.backView() === null ? "<null>" : $ionicHistory.backView().stateName);
+        //}, 1000);
+    });
+	**/
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -40,7 +62,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 	.state('eventmenu.home', {
       url: '/home',
       views: {
-        'menuContent' :{
+        'searchContent' :{
           templateUrl: 'templates/home.html'
         }
       }
@@ -48,7 +70,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     .state('eventmenu.checkin', {
       url: '/check-in',
       views: {
-        'menuContent' :{
+        'searchContent' :{
           templateUrl: 'templates/check-in.html',
           controller: 'CheckinCtrl'
         }
@@ -57,7 +79,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     .state('eventmenu.attendees', {
       url: "/attendees",
       views: {
-        'menuContent' :{
+        'searchContent' :{
           templateUrl: 'templates/attendees.html',
           controller: "AttendeesCtrl"
         }
@@ -69,7 +91,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   .state('app.search', {
     url: '/search',
     views: {
-      'menuContent': {
+      'searchContent': {
         templateUrl: 'templates/search.html'
       }
     }
@@ -78,7 +100,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   .state('app.browse', {
       url: '/browse',
       views: {
-        'menuContent': {
+        'searchContent': {
           templateUrl: 'templates/browse.html'
         }
       }
@@ -86,7 +108,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     .state('app.playlists', {
       url: '/playlists',
       views: {
-        'menuContent': {
+        'searchContent': {
           templateUrl: 'templates/playlists.html',
           controller: 'PlaylistsCtrl'
         }
@@ -96,7 +118,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   .state('app.single', {
     url: '/playlists/:playlistId',
     views: {
-      'menuContent': {
+      'searchContent': {
         templateUrl: 'templates/playlist.html',
         controller: 'PlaylistCtrl'
       }

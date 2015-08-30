@@ -6,7 +6,9 @@
 // 'starter.controllers' is found in controllers.js
 var showFullScreen = false;
 var showStatusBar = true;
-
+function onTouch(){
+	document.getElementsByClassName('orient-mfb')[0].setAttribute("data-mfb-state", "closed");
+}
 angular.module('starter', ['ionic', 'starter.controllers', 'ng-mfb'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
