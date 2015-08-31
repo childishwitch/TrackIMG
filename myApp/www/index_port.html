@@ -1,46 +1,44 @@
 ﻿     <ion-view title="'Portrait'" left-buttons="leftButtons" hide-nav-bar="true">
-     <ion-pane>
 		<ion-content ng-controller="PortCtrl">
 			<!--ion-toggle ng-model="shouldShowCheck"></ion-toggle-->
 			<ion-list can-swipe="true">
 			  <div class="item item-divider">
 				自行新增的
 			  </div>
-			 <ion-item ng-click="search(item)" ng-repeat="item in myItems" class="item item-icon-right">
+			 <ion-item ng-repeat="item in myItems" class="item">
 				<!--ion-checkbox ng-model="isChecked" style="border:none;padding-top:2px;padding-bottom:2px;padding-right:2px;padding-left:30px;position:relative;left:0;margin:0%;size:100%;"-->
-				<label class="item-checkbox" ng-model="item.checked" ng-click="vm.checkbox()" style="position:absolute;left:0px;top:0px;bottom:0px;width:50px;height:50px;">
+				<label class="item-checkbox" style="position:absolute;left:0px;top:0px;bottom:0px;width:50px;height:50px;">
 				<!--div class="checkbox checkbox-input-hidden disable-pointer-events"-->
 				<div class="checkbox checkbox-input-hidden disable-pointer-events">
-				<input type="checkbox">
+				<input type="checkbox" ng-model="item.checked">
 				<i class="checkbox-icon"></i>
 				</div>
 				</label>
-				<div onclick="location='search/search.html'" style="position:absolute;left:50px;top:0px;bottom:0px;right:0px;width:inherit;height:50px;"></div>
-				<span style="margin-left:50px;">{{item}}</div>
+				<div ng-click="onClick(item)" on-Hold="onHold(item)" data-tap-disabled="true" style="position:absolute;left:50px;top:0px;bottom:0px;right:0px;width:inherit;height:50px;"></div>
+				<span style="margin-left:50px;">{{item.text}}</div>
 				<!--i class="icon ion-ios-arrow-right"></i-->
 				<!--/ion-checkbox-->
 				<ion-option-button class="ion-trash-a icon-right button-assertive" ng-click="delete(item)">
 				Delete
 				</ion-option-button>
-				</ion-item>
+			 </ion-item>
 			</ion-list>
 			<ion-list>
 			  <div class="item item-divider">
 				相片剛剛說的
 			  </div>
-			  <ion-item ng-click="search(item)" ng-repeat="item in sysItems" class="item item-icon-right">
+			  <ion-item ng-repeat="item in sysItems" class="item">
 				<!--ion-checkbox ng-click="search(item)" ng-model="isChecked" ng-repeat="item in sysItems"-->
-				<label class="item-checkbox" ng-model="item.checked" ng-click="vm.checkbox()"  style="position:absolute;left:0px;top:0px;bottom:0px;width:50px;height:50px;">
+				<label class="item-checkbox" style="position:absolute;left:0px;top:0px;bottom:0px;width:50px;height:50px;">
 				<div class="checkbox checkbox-input-hidden disable-pointer-events">
-				<input type="checkbox">
+				<input type="checkbox" ng-model="item.checked">
 				<i class="checkbox-icon"></i>
 				</div>
 				</label>
-				<div onclick="location='search/search.html'" style="position:absolute;left:50px;top:0px;bottom:0px;right:0px;width:inherit;height:50px;"></div>
-				<span style="margin-left:50px;">{{item}}</span>
+				<div ng-click="onClick(item)" on-Hold="onHold(item)" data-tap-disabled="true" style="position:absolute;left:50px;top:0px;bottom:0px;right:0px;width:inherit;height:50px;"></div>
+				<span style="margin-left:50px;">{{item.text}}</span>
 				<!--/ion-checkbox-->
 			  </ion-item>
 			</ion-list>
 		</ion-content>
-	</ion-pane>
 	</ion-view>

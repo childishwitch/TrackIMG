@@ -8,7 +8,8 @@
 	<link href="lib/floating-button/mfb/dist/mfb.css" rel="stylesheet">
 	<link rel="stylesheet" media="all and (orientation:portrait)" href="css/portrait.css">
 	<link rel="stylesheet" media="all and (orientation:landscape)" href="css/landscape.css">
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/style.css" rel="stylesheet">
+	<!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
@@ -27,16 +28,14 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
   </head>
-	<body ng-app="starter">
-		<div  ng-controller="OmfbCtrl as ctrl">
+	<body ng-app="starter" ng-controller="StarCtrl as ctrl" on-Touch="omfbClose()">
 		<nav mfb-menu position="br" effect="zoomin"
 			 active-icon="ion-close-round" resting-icon="ion-edit"
 			 toggling-method="click" class="orient-mfb">
 			 <button mfb-button mfb-button-close icon="ion-android-search" onClick="location='search/search.html'"></button>
 			 <button mfb-button mfb-button-close icon="ion-plus-round"></button>
 		</nav>
-		</div>
-		<div  ng-controller="IndexCtrl" onClick="onTouch();">
+		<div  ng-controller="IndexCtrl">
 		<ion-nav-view></ion-nav-view>
 		</div>
 	</body>

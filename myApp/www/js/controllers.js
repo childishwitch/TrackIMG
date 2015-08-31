@@ -37,15 +37,8 @@
   };
   window.addEventListener("DOMContentLoaded",init,false);
   //$scope.$on('pause', mfbDeregister);
-  $scope.myItems = ["台北","101大樓"];
-  $scope.sysItems = ["臺灣","煙火","跨年","台北市"];  
-})
-.controller('PortContentCtrl', function($scope) {
-
-})
-
-.controller('LandContentCtrl"', function($scope, $element, $window) {
-
+  $scope.myItems = [{text:"台北",checked:false},{text:"101大樓",checked:false}];
+  $scope.sysItems = [{text:"臺灣",checked:false,touched:false},{text:"煙火"},{text:"跨年"},{text:"台北市"}];  
 })
 
 .controller('LandCtrl', function($scope) {
@@ -53,21 +46,49 @@
 })
 
 .controller('PortCtrl', function($scope) {
-
+		
+		/**click the item on hold*/
+		$scope.onHold = function(item){
+		if(!item)
+			return;
+		item.checked = !(item.checked);
+		};
+		$scope.onClick = function(item){//will be fired on the web when on-Hold
+		if(!item)
+			return;
+		location="search/search.html";
+		};
 })
 
 .controller('EventMenuCtrl', function($scope) {
 
 })
 
-.controller('OmfbCtrl', function($scope,$ionicPlatform) {
-		var mfbDeregister = $ionicPlatform.registerBackButtonAction(
-		function () {
-			var omfb = document.getElementsByClassName('orient-mfb')[0];
-			if(omfb.getAttribute("data-mfb-state") == 'open')
-				onTouch();
-			else
-				alert('back to camera?');
-			}, 101
-		);
+.controller('StarCtrl', function($scope,$ionicPlatform,$ionicPopup) {
+	$scope.omfbClose = function(){omfbClose();};
+			 var showConfirm = function() {
+			   var confirmPopup = $ionicPopup.confirm({
+				 title: '閱讀下張圖片',
+				 template: '卻定要返回相機,讀取下張圖片?'
+			   });
+			   confirmPopup.then(function(res) {
+				 if(res) {
+					window.cpjs.sendToAndroid("close");
+					console.log('close webview');
+				 } else {
+				   console.log('not sure to close webview');
+				 }
+			   });
+			 };
+	/**when click on the back button on the hardware*/
+	var myBackDeregister = $ionicPlatform.registerBackButtonAction(
+	function () {
+		var omfb = document.getElementsByClassName('orient-mfb')[0];
+		if(omfb.getAttribute("data-mfb-state") == 'open')
+			omfbClose();
+		else{
+			showConfirm();
+			}
+		}, 101
+	);
 });
