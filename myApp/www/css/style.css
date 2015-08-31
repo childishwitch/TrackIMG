@@ -1,4 +1,4 @@
 ion-item:active,.item-content:active{
 	border-color: #ccc;
-	background-color: #D9D9D9;
+	background-color: #D9D9D9;!ion-item with ion-button-option will auto add item-content
 }

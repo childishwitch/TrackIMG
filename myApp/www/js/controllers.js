@@ -37,8 +37,8 @@
   };
   window.addEventListener("DOMContentLoaded",init,false);
   //$scope.$on('pause', mfbDeregister);
-  $scope.myItems = [{text:"台北",checked:false},{text:"101大樓",checked:false}];
-  $scope.sysItems = [{text:"臺灣",checked:false,touched:false},{text:"煙火"},{text:"跨年"},{text:"台北市"}];  
+  $scope.myItems = [{text:"台北"},{text:"101大樓"}];
+  $scope.sysItems = [{text:"臺灣"},{text:"煙火"},{text:"跨年"},{text:"台北市"}];  
 })
 
 .controller('LandCtrl', function($scope) {
@@ -73,8 +73,13 @@
 			   });
 			   confirmPopup.then(function(res) {
 				 if(res) {
-					window.cpjs.sendToAndroid("close");
-					console.log('close webview');
+					/**close the webview*/
+					cordova.exec(function(param) {
+						alert("send success:"+param);
+					}, function(param){
+						alert("send fails"+param);
+					}, "Device",
+					"webViewMsg", ["close"]);
 				 } else {
 				   console.log('not sure to close webview');
 				 }

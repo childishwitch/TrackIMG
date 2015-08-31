@@ -12,6 +12,10 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+ /**try*/
+import android.widget.Toast;
+import android.webkit.JavascriptInterface;
+ import android.content.Intent;
  
 public class MainActivity extends CordovaActivity implements SurfaceHolder.Callback{
  SurfaceHolder surfaceHolder;
@@ -62,10 +66,33 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
 				//surfaceDestroyed(surfaceHolder);
 				onUrl = true;
 				loadUrl(launchUrl);
+				/**have some try*/
+				//appView.addJavascriptInterface(new IJavascriptHandler(), "cpjs");
+				//appView.loadUrl("javascript:androidResponse();void(0)");
 			   }});
 		}
     }
 	
+	public boolean restartCamera(){
+		onUrl = false;
+		//camera=Camera.open();
+		scan.setEnabled(true);
+		/*
+		if(this.appView != null){
+			loadUrl("about:blank");
+			//this.keepRunning = false;
+			//appView.handleStop();
+			appView = null;
+		}
+		*/
+		
+		Intent intent = getIntent();
+		//loadUrl("about:blank");
+		finish();
+		startActivity(intent);
+		return true;
+		
+	}
 	/*
     PictureCallback jpeg =new PictureCallback(){
   
