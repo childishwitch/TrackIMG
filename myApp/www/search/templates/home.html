@@ -7,7 +7,32 @@
 			<!--div class="title item-input-inset"-->
 			  <label class="item-input-wrapper">
 				<i class="icon ion-ios-search placeholder-icon"></i>
-				<input type="search" placeholder="Search">
+<!-- Search box form -->
+<form onsubmit="return executeQuery();" id="cse-search-box-form-id">
+  <!-- This is the input searc box -->
+  <input type="search" id="cse-search-input-box-id" size="25" autocomplete="off" placeholder="Search"/>
+  <!-- This is the search button
+  <input type="submit" value="Search"/-->
+</form>
+<!-- End of search box form -->
+
+<!-- REQUIRED: Attach the Google branding watermark to your search box. -->
+<!-- WARNING: Branding attachment should be after transliteration -->
+<!-- Set the "form" URL parameter to the id of the form containing the input
+         search box.
+     Set the "inputbox" URL parameter to the name or id of the query textbox.
+         'q' will be used if it's not specified.
+     Set the "lang" URL parameter to localize the branding for a specific
+         language. Find the list of supported languages at
+         http://code.google.com/apis/customsearch/docs/ref_languages.html
+-->
+
+<script type="text/javascript"
+        src="//www.google.com/cse/brand?form=cse-search-box-form-id&inputbox=cse-search-input-box-id">
+</script>
+<!-- End of Google branding watermark -->
+
+
 				<!--button class="button button-icon icon ion-ios-mic-outline" style="text-align:right">
 				</button-->
 			  </label>
@@ -21,12 +46,8 @@
         <!--ion-content has-header="true" padding="true"-->
 		<div style="height: 64px;"></div>
 
-<div class="sidebar">
-<gcse:searchbox></gcse:searchbox>
-</div>
-
 <div class="main-content">
-  <gcse:searchresults></gcse:searchresults>
+  <gcse:searchresults-only></gcse:searchresults-only>
 </div>
 
 		</ion-content>
