@@ -53,10 +53,11 @@
 			return;
 		item.checked = !(item.checked);
 		};
-		$scope.onClick = function(item){//will be fired on the web when on-Hold
-		if(!item)
-			return;
-		location="search/search.html";
+		$scope.onClick = function(item){//will be fired on "ionic serve" when on-Hold
+			if(!item)
+				return;
+			top.name=item.text;
+			location="search/search.html";
 		};
 })
 

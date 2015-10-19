@@ -1,7 +1,6 @@
 angular.module('starter.controllers', ['ionic'])
 
 .controller('MainCtrl', function($scope, $ionicSideMenuDelegate, $ionicPlatform,$ionicHistory,$state) {
-     
 	  /**ionicHistory property**/
 	  /**
 	  $ionicHistory.nextViewOptions({

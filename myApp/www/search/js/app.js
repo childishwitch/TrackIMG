@@ -19,6 +19,10 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+	if(top.name){
+		document.getElementById('cse-search-input-box-id').value=top.name;
+		executeQuery();
+	}
   });
   /**watch the state change**/
   /**
