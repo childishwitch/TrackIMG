@@ -5,6 +5,8 @@ import org.apache.cordova.*;
 import android.app.Activity;
 import android.widget.ImageView;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
@@ -12,6 +14,11 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.graphics.PixelFormat;
+import android.hardware.Camera.PictureCallback;
+import android.hardware.Camera.AutoFocusCallback;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
  /**try*/
 import android.widget.Toast;
 import android.webkit.JavascriptInterface;
@@ -52,20 +59,21 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
 			
 			surfaceHolder=surfaceView1.getHolder();
 			surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+			surfaceHolder.setSizeFromLayout();
 			surfaceHolder.addCallback(this);
 			scan.setOnClickListener(new OnClickListener(){
 	  
 			   public void onClick(View v) {
 				 
 				//自動對焦
-				//camera.autoFocus(afcb);
+				camera.autoFocus(afcb);
 				scan.setEnabled(false);
 				//imageView.setImageResource(R.drawable.building);
 				
 				//error occured before loadUrl
 				//surfaceDestroyed(surfaceHolder);
-				onUrl = true;
-				loadUrl(launchUrl);
+				//onUrl = true;
+				//loadUrl(launchUrl);
 				/**have some try*/
 				//appView.addJavascriptInterface(new IJavascriptHandler(), "cpjs");
 				//appView.loadUrl("javascript:androidResponse();void(0)");
@@ -134,8 +142,20 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
 
 	@Override  
     public void surfaceChanged(SurfaceHolder holder, int format, int width,  int height) {   
-                 
- 
+	  try {
+	   Camera.Parameters parameters=camera.getParameters();
+	   parameters.setPictureFormat(PixelFormat.JPEG);
+	   //parameters.setPreviewSize(320, 220);
+	   camera.setParameters(parameters);
+	   //set parameter
+	   camera.setPreviewDisplay(holder);
+	   //change the camera to portscape
+	   camera.setDisplayOrientation(90);
+	   camera.startPreview();
+	  } catch (IOException e) {
+		
+	   e.printStackTrace();
+	  }
     }  
    @Override
  public void surfaceCreated(SurfaceHolder holder) {
@@ -148,7 +168,7 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
    parameters.setPreviewSize(320, 220);
    camera.setParameters(parameters);
    //設置參數
-   camera.setPreviewDisplay(surfaceHolder);
+   camera.setPreviewDisplay(holder);
    //鏡頭的方向和手機相差90度，所以要轉向
    //camera.setDisplayOrientation(90);
    //攝影頭畫面顯示在Surface上
@@ -157,15 +177,6 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
     
    e.printStackTrace();
   }*/
-  try {
-    camera.setPreviewDisplay(holder);
-    // set any cam params you need...
-
-    camera.startPreview();
-  } catch (IOException e) {
-    
-   e.printStackTrace();
-  }
  }
   @Override 
  public void surfaceDestroyed(SurfaceHolder holder) {
@@ -178,7 +189,48 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
   //}
   // 
  }
-  /*
+
+    PictureCallback jpeg =new PictureCallback(){
+  
+  public void onPictureTaken(byte[] data, Camera camera) {
+    
+   Bitmap bmp=BitmapFactory.decodeByteArray(data, 0, data.length);
+   //byte數组轉換成Bitmap
+   imageView.setImageBitmap(bmp);
+   //拍下圖片顯示在下面的ImageView裡
+   /*
+        Date curDateTime = new Date();
+        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
+        String fileName = "checking_" + sdFormat.format(curDateTime) + ".jpg";
+   */
+   FileOutputStream fop;
+   try {
+	//????how to display in the sony image previewer
+	fop=new FileOutputStream("/sdcard/dd.jpg");
+    //fop=new FileOutputStream("/sdcard/"+fileName);
+    //實例化FileOutputStream，參數是生成路徑
+    bmp.compress(Bitmap.CompressFormat.JPEG, 100, fop);
+    //壓缩bitmap寫進outputStream 參數：輸出格式  輸出質量  目標OutputStream
+    //格式可以為jpg,png,jpg不能存儲透明
+    fop.close();
+     Toast.makeText(MainActivity.this, "saved",Toast.LENGTH_LONG).show();
+	//關閉流
+   } catch (FileNotFoundException e) {
+    e.printStackTrace();
+    Toast.makeText(MainActivity.this, "filenotfind", Toast.LENGTH_LONG).show();
+   } catch (IOException e) {
+     
+    e.printStackTrace();
+    System.out.println("IOException");
+   }
+   	onUrl = true;
+	loadUrl(launchUrl);
+   //camera.startPreview();
+   //需要手動重新startPreview，否則停在拍下的瞬間
+  }
+  
+    };
+ 
  //自動對焦監聽式
  AutoFocusCallback afcb= new AutoFocusCallback(){
   
@@ -187,9 +239,10 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
    if(success){
     //對焦成功才拍照
     camera.takePicture(null, null, jpeg);
+	Toast.makeText(MainActivity.this, "takePicture",Toast.LENGTH_LONG).show();
    }
   }
   
   
- };*/
+ };
 }
