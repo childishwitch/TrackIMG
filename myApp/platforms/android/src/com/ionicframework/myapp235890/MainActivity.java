@@ -19,6 +19,17 @@ import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.AutoFocusCallback;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+/**connect to server*/
+import java.net.Socket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.io.DataOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.lang.Exception;
+import android.os.StrictMode;
  /**try*/
 import android.widget.Toast;
 import android.webkit.JavascriptInterface;
@@ -43,7 +54,11 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
 			scan=(Button)findViewById(R.id.scan1);
 			imageView=(ImageView)findViewById(R.id.imgcaptured);
 			surfaceView1=(SurfaceView)findViewById(R.id.camera_inside);
-        }
+			if (android.os.Build.VERSION.SDK_INT > 9) {
+				StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+				StrictMode.setThreadPolicy(policy);
+			}
+		}
     }
 	
 	 @Override
@@ -204,6 +219,7 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
         String fileName = "checking_" + sdFormat.format(curDateTime) + ".jpg";
    */
    FileOutputStream fop;
+   Socket socket;
    try {
 	//????how to display in the sony image previewer
 	fop=new FileOutputStream("/sdcard/dd.jpg");
@@ -215,15 +231,56 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
     fop.close();
      Toast.makeText(MainActivity.this, "saved",Toast.LENGTH_LONG).show();
 	//關閉流
+	System.out.println("saved");
+	InetAddress serverAdd = InetAddress.getByName("10.6.56.151");
+	System.out.println("InetAddress OK");
+	SocketAddress sc_add = new InetSocketAddress(serverAdd,5000);
+	System.out.println("socketaddress OK");
+	socket = new Socket();
+	System.out.println("new socket");
+	socket.connect(sc_add,2000);
+	System.out.println("set time");
+	/*
+	PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+	out.print("Hi, Jay!\n");
+	out.flush();
+	*/
+	DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+	System.out.println("out create");
+	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	System.out.println("baos create");
+	bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+	System.out.println("bmp compress");
+	byte[] bytes = baos.toByteArray();
+	System.out.println("to array");
+	out.write(bytes);
+	System.out.println("write over");
+	out.close();
+	System.out.println("close out");
+	socket.close();
+	System.out.println("close socket");
+	//Toast.makeText(MainActivity.this, "connected",Toast.LENGTH_LONG).show();
+	//Toast.makeText(MainActivity.this, bytes.toString(),Toast.LENGTH_LONG).show();
    } catch (FileNotFoundException e) {
     e.printStackTrace();
-    Toast.makeText(MainActivity.this, "filenotfind", Toast.LENGTH_LONG).show();
+	System.out.println(e.toString());
+    //Toast.makeText(MainActivity.this, "filenotfind", Toast.LENGTH_LONG).show();
+   } catch (UnknownHostException e){
+	e.printStackTrace();
+	System.out.println(e.toString());
+   } catch (SocketException e) {
+	e.printStackTrace();
+	System.out.println(e.toString());
    } catch (IOException e) {
-     
     e.printStackTrace();
-    System.out.println("IOException");
+	System.out.println(e.toString());
+	//Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+   } catch (Exception e){
+	e.printStackTrace();
+	System.out.println("some else: "+e.toString());
    }
-   	onUrl = true;
+   	System.out.println("all is well");
+	onUrl = true;
 	loadUrl(launchUrl);
    //camera.startPreview();
    //需要手動重新startPreview，否則停在拍下的瞬間
@@ -239,6 +296,7 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
    if(success){
     //對焦成功才拍照
     camera.takePicture(null, null, jpeg);
+	System.out.println("take picture");
 	Toast.makeText(MainActivity.this, "takePicture",Toast.LENGTH_LONG).show();
    }
   }
