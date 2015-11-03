@@ -30,6 +30,7 @@ import java.io.DataOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.lang.Exception;
 import android.os.StrictMode;
+import java.nio.ByteBuffer;
  /**try*/
 import android.widget.Toast;
 import android.webkit.JavascriptInterface;
@@ -246,6 +247,7 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
 	out.flush();
 	*/
 	DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+    out.flush();
 	System.out.println("out create");
 	ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	System.out.println("baos create");
@@ -253,7 +255,12 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
 	System.out.println("bmp compress");
 	byte[] bytes = baos.toByteArray();
 	System.out.println("to array");
+	byte[] newByte = ByteBuffer.allocate(4).putInt(bytes.length).array();
+	System.out.println("file size: "+newByte+"\n bytes length: "+newByte.length);
+	out.write(newByte);
+	//out.flush();
 	out.write(bytes);
+	out.flush();
 	System.out.println("write over");
 	out.close();
 	System.out.println("close out");
