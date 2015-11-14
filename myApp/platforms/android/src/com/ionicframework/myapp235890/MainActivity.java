@@ -233,7 +233,7 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
      Toast.makeText(MainActivity.this, "saved",Toast.LENGTH_LONG).show();
 	//關閉流
 	System.out.println("saved");
-	InetAddress serverAdd = InetAddress.getByName("10.6.56.151");
+	InetAddress serverAdd = InetAddress.getByName("163.21.235.61");
 	System.out.println("InetAddress OK");
 	SocketAddress sc_add = new InetSocketAddress(serverAdd,5000);
 	System.out.println("socketaddress OK");

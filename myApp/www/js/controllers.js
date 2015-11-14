@@ -37,8 +37,12 @@
   };
   window.addEventListener("DOMContentLoaded",init,false);
   //$scope.$on('pause', mfbDeregister);
-  $scope.myItems = [{text:"台北"},{text:"101大樓"}];
-  $scope.sysItems = [{text:"臺灣"},{text:"煙火"},{text:"跨年"},{text:"台北市"}];  
+  var jsonString = '{"items": [{"value": 4.567401619860497, "text": "\u82f1\u96c4"}, {"value": 3.9425907538571296, "text": "\u904a\u6232"}, {"value": 3.3218091146784494, "text": "\u5b98\u65b9"}, {"value": 2.4552017601000378, "text": "\u653b\u7565"}, {"value": 2.0474363460659375, "text": "\u66f4\u65b0"}, {"value": 1.9091345934520476, "text": "\u806f\u76df"}, {"value": 1.836866560249032, "text": "\u4e2d\u5fc3"}, {"value": 1.5869972927321079, "text": "\u65b0\u805e"}, {"value": 1.4278583209634514, "text": "\u5be6\u6cc1"}, {"value": 1.3085430613891669, "text": "\u96fb\u7af6"}]}';
+  $scope.sysItems = (JSON.parse(jsonString)).items;
+  //$scope.sysItems = $scope.sysItems.items;
+  //alert("items: "+$scope.sysItems);
+  //$scope.myItems = [{text:"台北"},{text:"101大樓"}];
+  //$scope.sysItems = [{text:"臺灣",percent:50},{text:"煙火",percent:40},{text:"跨年",percent:30},{text:"台北市",percent:20}];  
 })
 
 .controller('LandCtrl', function($scope) {
@@ -97,5 +101,5 @@
 			}
 		}, 101
 	);
-    $scope.myData = [10,20,30,40,60, 80, 20, 50];
+    //$scope.myData = [10,20,30,40,60, 80, 20, 50];
 });
