@@ -31,6 +31,19 @@ import java.io.ByteArrayOutputStream;
 import java.lang.Exception;
 import android.os.StrictMode;
 import java.nio.ByteBuffer;
+/**create a server*/
+import java.net.ServerSocket;
+import java.io.InputStream;
+/**http client*/
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
  /**try*/
 import android.widget.Toast;
 import android.webkit.JavascriptInterface;
@@ -233,14 +246,19 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
      Toast.makeText(MainActivity.this, "saved",Toast.LENGTH_LONG).show();
 	//關閉流
 	System.out.println("saved");
+	//InetAddress serverAdd = InetAddress.getByName("10.6.56.151");
 	InetAddress serverAdd = InetAddress.getByName("163.21.235.61");
+	//InetAddress serverAdd = InetAddress.getByName("36.227.138.35");
 	System.out.println("InetAddress OK");
 	SocketAddress sc_add = new InetSocketAddress(serverAdd,5000);
 	System.out.println("socketaddress OK");
 	socket = new Socket();
+	//InetAddress androidAdd = InetAddress.getByName("192.168.2.7");
+	//socket = new Socket("36.227.138.35",5000,androidAdd,5000);
 	System.out.println("new socket");
 	socket.connect(sc_add,2000);
-	System.out.println("set time");
+	System.out.println("set time: "+socket.getPort()+" "+socket.getLocalSocketAddress()+" "+socket.getRemoteSocketAddress());
+	System.out.println(socket.toString());
 	/*
 	PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 	out.print("Hi, Jay!\n");
@@ -256,18 +274,45 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
 	byte[] bytes = baos.toByteArray();
 	System.out.println("to array");
 	byte[] newByte = ByteBuffer.allocate(4).putInt(bytes.length).array();
-	System.out.println("file size: "+newByte+"\n bytes length: "+newByte.length);
+	System.out.println("file size: "+bytes.length+"\n bytes length: "+newByte.length);
 	out.write(newByte);
-	//out.flush();
 	out.write(bytes);
 	out.flush();
-	System.out.println("write over");
-	out.close();
+	System.out.println("flush out");
+	//out.close(); <- server will close this stream
 	System.out.println("close out");
+	//socket.connect(sc_add,2000);
+	
+	InputStream inputStream = socket.getInputStream();
+	System.out.println("get input");
+	byte buffer[] = new byte[1024 * 4];
+	int temp = 0;
+	// 從InputStream當中讀取客戶端所發送的數據
+	while ((temp = inputStream.read(buffer)) != -1) {
+		System.out.println(new String(buffer, 0, temp));
+	}
+	System.out.println("write over");
 	socket.close();
 	System.out.println("close socket");
-	//Toast.makeText(MainActivity.this, "connected",Toast.LENGTH_LONG).show();
-	//Toast.makeText(MainActivity.this, bytes.toString(),Toast.LENGTH_LONG).show();
+	//serversocket
+	//Thread t = new thread();
+	//t.start();
+	
+	//http
+	//String url = "http://163.21.235.61:5000";
+	/*
+        // check if you are connected or not
+        if(isConnected()){
+            tvIsConnected.setBackgroundColor(0xFF00CC00);
+            tvIsConnected.setText("You are conncted");
+        }
+        else{
+            tvIsConnected.setText("You are NOT conncted");
+        }*/
+ 
+    // call AsynTask to perform network operation on separate thread
+    //new HttpAsyncTask().execute(url);
+
    } catch (FileNotFoundException e) {
     e.printStackTrace();
 	System.out.println(e.toString());
@@ -286,12 +331,112 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
 	e.printStackTrace();
 	System.out.println("some else: "+e.toString());
    }
+	//ServerReceviedByTcp();
    	System.out.println("all is well");
-	onUrl = true;
-	loadUrl(launchUrl);
+	//onUrl = true;
+	//loadUrl(launchUrl);
    //camera.startPreview();
    //需要手動重新startPreview，否則停在拍下的瞬間
   }
+  /*http
+    public String GET(String url){
+        InputStream inputStream = null;
+        String result = "";
+        try {
+ 
+            // create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+			System.out.println("create default http client");
+ 
+            // make GET request to the given URL
+            HttpResponse httpResponse = httpclient.execute(new HttpGet(url));
+			System.out.println("make http response");
+ 
+            // receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+			System.out.println("get inputStream");
+ 
+            // convert inputstream to string
+            if(inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+			System.out.println("Get over");
+ 
+        } catch (Exception e) {
+            System.out.println("InputStream: "+e.getLocalizedMessage());
+        }
+ 
+        return result;
+    }
+ 
+    private String convertInputStreamToString(InputStream inputStream) throws IOException{
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while((line = bufferedReader.readLine()) != null)
+            result += line;
+ 
+        inputStream.close();
+        return result;
+ 
+    }*/
+ /*
+    public boolean isConnected(){
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isConnected()) 
+                return true;
+            else
+                return false;   
+    }*/
+	/*http
+    class HttpAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+			System.out.println("doInBackground");
+            return GET(urls[0]);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            System.out.println("Received!");
+            System.out.println(result);
+       }
+    }*/
+	/*serversocket
+  class thread extends Thread{
+  public void run(){
+	ServerReceviedByTcp();
+  }
+  public void ServerReceviedByTcp() {
+		// 聲明一個ServerSocket對象
+		ServerSocket serverSocket = null;
+		boolean run = true;
+		while(run){
+		try {
+			// 創建一個ServerSocket對象，並讓這個Socket在1989端口監聽
+			serverSocket = new ServerSocket(5000);
+			System.out.println("server socket created");
+			// waiting for socket connection
+			Socket socket = serverSocket.accept();
+			System.out.println("Accepted connection from "+socket.getInetAddress().getHostAddress());
+			InputStream inputStream = socket.getInputStream();
+			byte buffer[] = new byte[1024 * 4];
+			int temp = 0;
+			// 從InputStream當中讀取客戶端所發送的數據
+			while ((temp = inputStream.read(buffer)) != -1) {
+				System.out.println(new String(buffer, 0, temp));
+			}
+			run = false;
+			serverSocket.close();
+		} catch (IOException e) {
+			System.out.println("IOExcpetion");
+			e.printStackTrace();
+		}
+		}
+	}
+	}*/
   
     };
  
