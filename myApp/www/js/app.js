@@ -30,10 +30,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ng-mfb'])
 						alert("send success:"+param);
 						//alert((JSON.parse(param)).items);
 						//sharedProperties.setProperty((JSON.parse(param)).items);
-							  var jsonString = '{"items": [{"value": 4.567401619860497, "text": "\u82f1\u96c4"}, {"value": 3.9425907538571296, "text": "\u904a\u6232"}, {"value": 3.3218091146784494, "text": "\u5b98\u65b9"}, {"value": 2.4552017601000378, "text": "\u653b\u7565"}, {"value": 2.0474363460659375, "text": "\u66f4\u65b0"}, {"value": 1.9091345934520476, "text": "\u806f\u76df"}, {"value": 1.836866560249032, "text": "\u4e2d\u5fc3"}, {"value": 1.5869972927321079, "text": "\u65b0\u805e"}, {"value": 1.4278583209634514, "text": "\u5be6\u6cc1"}, {"value": 1.3085430613891669, "text": "\u96fb\u7af6"}]}';
-							  JSONString = jsonString;
-			sharedService.setProperty((JSON.parse(jsonString)).items);
- //sharedProperties.setProperty((JSON.parse(jsonString)).items);
+							  var jsonString = '{"items": [{"percent": 50, "text": "\u82f1\u96c4"}, {"percent": 50, "text": "\u904a\u6232"}, {"percent": 50, "text": "\u5b98\u65b9"}, {"percent": 50, "text": "\u653b\u7565"}, {"percent": 50, "text": "\u66f4\u65b0"}, {"percent": 50, "text": "\u806f\u76df"}, {"percent": 50, "text": "\u4e2d\u5fc3"}, {"percent": 50, "text": "\u65b0\u805e"}, {"percent": 50, "text": "\u5be6\u6cc1"}, {"percent": 50, "text": "\u96fb\u7af6"}]}';
+							  //JSONString = jsonString;
+			//sharedService.setProperty((JSON.parse(jsonString)).items);
+		sharedService.setProperty((JSON.parse(param)).items);
   alert((sharedService.getProperty())[0].text);
 					}, function(param){
 						alert("send fails"+param);
