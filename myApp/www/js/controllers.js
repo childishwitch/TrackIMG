@@ -63,6 +63,7 @@
   //alert("items: "+$scope.sysItems);
   //$scope.myItems = [{text:"台北"},{text:"101大樓"}];
   //$scope.sysItems = [{text:"臺灣",percent:50},{text:"煙火",percent:40},{text:"跨年",percent:30},{text:"台北市",percent:20}];
+  //$scope.myData = [10,20,30,40,60, 80, 20, 50];
   //$scope.sysItems = sharedService.getProperty();
   
   $scope.sysItems = function(){return sharedService.getProperty();}
