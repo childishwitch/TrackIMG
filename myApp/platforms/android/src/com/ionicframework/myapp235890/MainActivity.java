@@ -55,6 +55,7 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
  Button scan;
  ImageView imageView;
  Camera camera;
+ public String myJSONString = "";
  static boolean onUrl = false;
  
   
@@ -245,7 +246,7 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
     fop.close();
      Toast.makeText(MainActivity.this, "saved",Toast.LENGTH_LONG).show();
 	//關閉流
-	System.out.println("saved");
+	System.out.println("saved");/**
 	//InetAddress serverAdd = InetAddress.getByName("10.6.56.151");
 	InetAddress serverAdd = InetAddress.getByName("163.21.235.61");
 	//InetAddress serverAdd = InetAddress.getByName("36.227.138.35");
@@ -263,7 +264,7 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
 	PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 	out.print("Hi, Jay!\n");
 	out.flush();
-	*/
+	*//**
 	DataOutputStream out = new DataOutputStream(socket.getOutputStream());
     out.flush();
 	System.out.println("out create");
@@ -286,13 +287,17 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
 	InputStream inputStream = socket.getInputStream();
 	System.out.println("get input");
 	byte buffer[] = new byte[1024 * 4];
-	int temp = 0;
+	int temp = 0;*/
 	// 從InputStream當中讀取客戶端所發送的數據
+	/**
 	while ((temp = inputStream.read(buffer)) != -1) {
-		System.out.println(new String(buffer, 0, temp));
-	}
+		//System.out.println(new String(buffer, 0, temp));
+		myJSONString += new String(buffer, 0, temp);
+	}*/
+	myJSONString = "{\"items\": [{\"value\": 4.567401619860497, \"text\": \"\u82f1\u96c4\"}, {\"value\": 3.9425907538571296, \"text\": \"\u904a\u6232\"}, {\"value\": 3.3218091146784494, \"text\": \"\u5b98\u65b9\"}, {\"value\": 2.4552017601000378, \"text\": \"\u653b\u7565\"}, {\"value\": 2.0474363460659375, \"text\": \"\u66f4\u65b0\"}, {\"value\": 1.9091345934520476, \"text\": \"\u806f\u76df\"}, {\"value\": 1.836866560249032, \"text\": \"\u4e2d\u5fc3\"}, {\"value\": 1.5869972927321079, \"text\": \"\u65b0\u805e\"}, {\"value\": 1.4278583209634514, \"text\": \"\u5be6\u6cc1\"}, {\"value\": 1.3085430613891669, \"text\": \"\u96fb\u7af6\"}]}";
 	System.out.println("write over");
-	socket.close();
+	/**
+	socket.close();*/
 	System.out.println("close socket");
 	//serversocket
 	//Thread t = new thread();
@@ -333,8 +338,8 @@ public class MainActivity extends CordovaActivity implements SurfaceHolder.Callb
    }
 	//ServerReceviedByTcp();
    	System.out.println("all is well");
-	//onUrl = true;
-	//loadUrl(launchUrl);
+	onUrl = true;
+	loadUrl(launchUrl);
    //camera.startPreview();
    //需要手動重新startPreview，否則停在拍下的瞬間
   }

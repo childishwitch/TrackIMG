@@ -97,6 +97,10 @@ public class Device extends CordovaPlugin {
 					//Intent intent = new Intent(context, MainActivity.class);
 					//cordova.getActivity().startActivityForResult(intent,1);
 		}
+		else if(action.equals("webViewJSON")){//my try
+					MainActivity main = (MainActivity)(cordova.getActivity());
+					 callbackContext.success(main.myJSONString);
+		}
         else {
             return false;
         }
