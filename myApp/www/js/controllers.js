@@ -81,7 +81,7 @@
  
 })
 
-.controller('PortCtrl', function($scope) {
+.controller('PortCtrl', function($scope, sharedService) {
 		
 		/**click the item on hold*/
 		$scope.onHold = function(item){
@@ -95,6 +95,7 @@
 			top.name=item.text;
 			location="search/search.html";
 		};
+		$scope.onChange = function(item){changeItem(item);}
 })
 
 .controller('EventMenuCtrl', function($scope) {
@@ -133,5 +134,13 @@
 			}
 		}, 101
 	);
+	$scope.searchAll = function(){
+			if(!(checkedItems.length))
+				alert("請勾選搜索建議再做搜尋。")
+			else{
+				top.name=checkedItems.toString();
+				location="search/search.html";
+			}
+	};
     //$scope.myData = [10,20,30,40,60, 80, 20, 50];
 });

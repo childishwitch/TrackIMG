@@ -6,9 +6,15 @@
 // 'starter.controllers' is found in controllers.js
 var showFullScreen = false;
 var showStatusBar = true;
-var JSONString = '';
+var checkedItems = [];
 function omfbClose(){
 	document.getElementsByClassName('orient-mfb')[0].setAttribute("data-mfb-state", "closed");
+}
+function changeItem(item){
+	if(item.checked)
+		checkedItems.push(item.text);
+	else
+		checkedItems.splice(checkedItems.indexOf(item.text),1);
 }
 angular.module('starter', ['ionic', 'starter.controllers', 'ng-mfb'])
 .run(function($ionicPlatform, $window, sharedService) {
